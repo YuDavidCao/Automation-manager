@@ -21,11 +21,11 @@ Automation manager is a tool to make and edit python scripts that automate your 
 ##### Step by step tutorial
 
 - After opening your app, you can start recording under menubar -> action -> mainmenu -> start record. Hit failsafekey to start record, hit pause key to pause, hit again to resume, and hit failsafekey again to stop recording.
-- ___Detailed recording tutorial under docs/recording tutorial___
+*__Detailed recording tutorial under docs/recording tutorial__
 - After recording your app, you can choose the recorded file under mainmenu, then you can edit your automation.
-- ___Detailed editing tutorial under docs/editing tutorial__
+*__Detailed editing tutorial under docs/editing tutorial__
 - After editing, you can choose a converting option and convert it to a python script. After that you can either run it directly or run from automation manager frame
-- ___Detailed managing tutorial under docs/managing tutorial__
+*__Detailed managing tutorial under docs/managing tutorial__
 
 ## Specialty
  
