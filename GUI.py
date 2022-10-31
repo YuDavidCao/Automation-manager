@@ -164,6 +164,10 @@ class Window():
         if self.choose_path:
             messagebox.showinfo("Select tesseract path", "Please choose a tesseract path for text recognition")
             self.p_path = filedialog.askopenfilename()
+            os.mkdir("img_extraction")
+            os.mkdir("record_folder")
+            os.mkdir("screenshot")
+            os.mkdir("text_extraction")
             if self.p_path:
                 self.setting["p_path"] = self.p_path
             self.setting["if_choose_path"] = False
@@ -210,10 +214,10 @@ class Window():
         self.addlabel   (1,2,2,f"The current pause key is {self.pause_key}")
         self.addrkbutton(1,3,0,"Record image extraction key 1",0,self.record_img_extraction_key)
         self.addrkbutton(1,3,1,"Record image extraction key 2",1,self.record_img_extraction_key)
-        self.addlabel   (1,3,2,f"The current image extraction key is {self.img_extraction_key}")
+        self.addlabel   (1,3,2,f"The current image extraction key is {self.img_extraction_key}+left click")
         self.addrkbutton(1,4,0,"Record text extraction key 1",0,self.record_text_extraction_key)
         self.addrkbutton(1,4,1,"Record text extraction key 2",1,self.record_text_extraction_key)
-        self.addlabel   (1,4,2,f"The current text extraction key is {self.text_extraction_key}")
+        self.addlabel   (1,4,2,f"The current text extraction key is {self.text_extraction_key}+left click")
         self.addbutton  (1,5,0,"If full screen",self.if_fullscreen)
         self.addlabel   (1,5,1,f"Open on full screen: {bool(self.isfullscreen)}")
         self.addcombobox(1,8,0,["light","dark","sky blue","vibrant","hacker"],self.choose_app_theme)
@@ -593,6 +597,7 @@ App setting:
             self.setting["p_path"] = self.p_path
         with open("setting.json","w") as f:
             json.dump(self.setting,f,indent = 4)
+        self.addlabel (2,1,1,f"The current tesseract path is {self.p_path}")
 
     def quit_canvas(self,event):
         """destory the canvas (for "show help" functions)"""
