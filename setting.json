@@ -7,7 +7,7 @@
     "fullscreen": false,
     "toggle_fullscreen": "<Control_L>q",
     "stop_fullscreen": "<Escape>",
-    "p_path": "D:/Code/tesseract.exe",
+    "p_path": "",
     "pause_key": [
         "ctrl_l",
         "f9"
@@ -20,8 +20,8 @@
         "ctrl_l",
         "f2"
     ],
-    "if_choose_path": false,
+    "if_choose_path": true,
     "time_gap": 0,
-    "app_theme": "hacker",
+    "app_theme": "light",
     "threading_check_interval": 1
 }
