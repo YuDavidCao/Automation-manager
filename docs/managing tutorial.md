@@ -1,7 +1,11 @@
 # managing tutorial
 A detailed description of managing your automations
 
-## COnverting
+## Important Note
+
+***When something unexpected happen when your automation execute, you can always terminate it directly by moving your mouse to the very corner of your computer screen!***
+
+## Converting
 
 - After you finished editing an automation, under mainmenu frame you are able to find the convert button. When click, your automations will be converted to a python source code file
 -  Beside the button, you will be able to select your converting option. There are two types (technically 3) converting options:
