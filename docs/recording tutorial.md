@@ -8,3 +8,9 @@ A detailed description of how to record
 4. You can pause multiple times and do multiple extractions, there's no limit on the length of the recording (unless drag it too long it will take a while to process and probably crash)
 After you have performed all your actions, hit failsafekey again (normally defaulted to "left ctrl" + "f10") to stop record (you should hear a "recording stop if successul)
 5. click the reload recorded data on mainmenu and you should be able to access the newly recorded file under the "choose a file from records". Find and choose the file, and your action details will show on the bottom right.
+
+## Note
+- Do not worry about misclicks, you can always delete or edit them during the editing phase
+- Don't hesitate to pause to think about what to do next
+- You can always change the gap time during the edit if you find yourself waiting too long
+- You do not have to repeat yourself during this phase because you can directly add repeat when editing
