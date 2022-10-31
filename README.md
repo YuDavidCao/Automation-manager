@@ -12,13 +12,11 @@
 
 ## Run the app from GUI.py
 
-## functions
-
-#### Overview
+## Overview
 
 Automation manager is a tool to make and edit python scripts that automate your computer actions include keyboard, mouse and screenshot. 
 
-#### Step by step tutorial
+## Step by step tutorial
 
 - After opening your app, you can start recording under menubar -> action -> mainmenu -> start record. Hit failsafekey to start record, hit pause key to pause, hit again to resume, and hit failsafekey again to stop recording.
 *__Detailed recording tutorial under docs/recording tutorial__
