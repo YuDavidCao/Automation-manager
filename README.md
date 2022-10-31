@@ -1,4 +1,4 @@
-# Automation-manager
+# Automation manager
 
 ## Prerequisite
 
