@@ -14,11 +14,11 @@
 
 ## functions
 
-### Overview
+##### Overview
 
 Automation manager is a tool to make and edit python scripts that automate your computer actions include keyboard, mouse and screenshot. 
 
-### Step by step tutorial
+##### Step by step tutorial
 
 - After opening your app, you can start recording under menubar -> action -> mainmenu -> start record. Hit failsafekey to start record, hit pause key to pause, hit again to resume, and hit failsafekey again to stop recording.
 - ___Detailed recording tutorial under docs/recording tutorial___
@@ -29,20 +29,20 @@ Automation manager is a tool to make and edit python scripts that automate your 
 
 ## Specialty
  
-### Functions
+##### Functions
 There are two power functions provided in the app or the recording — the image extraction and text extraction ability. Without those two functions it's merely a repeat-what-you-do tool, but image extraction and text extraction allows data collections which are probably more needed. 
 
-### Flexibility
+##### Flexibility
 The combination of OpenCV and pyautogui enables some flexability in the automation: When you record a mouse action, the app will take a screenshot and store it under the according screenshot folder. After converting, when runned, for every mouse action, the program will load in the according pictures and try to find the __exact__ match on the screen:
   - If __no__ matchings were detected, the cursor will go to the stored x,y coordinate
   - If __only__ one match is found on the screen, the x,y coordinate will update to the found location and perform the action
   - If __more than one__ match is found on the screen, the x,y coordinate will remain the stored value
  This allows limited reusability on your automations but it gurantees safety.
 
-### Convenience 
+##### Convenience 
 The automation editor in the app, especially merging blocks and adding for loops, allows easier editing and more conconvenient recording and editing process. 
 
-### Possibility
+##### Possibility
 The ability of converting edited data into python source code enables futhur editing. The gneral framework is provided by the converted code, but experienced programmers can add more details directly to the code to increase its flexibility and functions. For example, one can add many functions between commands like store extracted text to clipboard, get the url for more convient selenium webscraping, convert extracted image to videos... The combination of source-code generation, image extraction and text extraction opens up many possibilies for a much more powerful automations
 
 ## Motivations
