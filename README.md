@@ -1,8 +1,8 @@
 # Automation-manager
 
-## prerequisite
+## Prerequisite
 
-- pip install tk (if you do not have that)
+- pip install tk (if you do not have tkinter) 
 - pip install playsound
 - pip install pynput
 - pip install customtkinter
@@ -20,10 +20,42 @@ Automation manager is a tool to make and edit python scripts that automate your 
 
 ### Step by step tutorio
 
-- On the menubar, under action -> mainmenu, you are able to find the "start record" button. After clicking on it, get to the screen that you want to record and hit "failsafekey", normally defaulted to "left ctrl" + "f10" (You should hear a "recording start" sound if successful), then all your actions later on will be stored
-- Perform your action.
-- During the recording, you can always hit the pause key, normally defaulted to "left ctrl" + "f9" (You should hear a "recording pause" sound if successful). DUring the pause phase, everything you did will NOT be recorded until you depause (hit pause key again and you should hear a "recording resume" if successful) In addition, during pause, you can extract a certain part of your screen (essentailly screenshot) by clicking image extraction key twice, normally default to "left ctrl" + "f1" + "left click", the image area will be between the two left click. You can also extract texts from a certain part of your screen (essentailly analyzing the text from your screenshot) by clicking text extraction key twice, normally default to "left ctrl" + "f2" + "left click", the text extraction image area will be between the two left click. 
-- You can pause multiple times and do multiple extractions, there's no limit on the length of the recording (well technically there is if you drag it too long it will take a while to process) 
-- After you have performed all your actions, hit failsafekey again (normally defaulted to "left ctrl" + "f10") to stop record (you should hear a "recording stop
- if successul) 
-- click the reload recorded data on mainmenu and you should be able to access the newly recorded file under the "choose a file from records". Find and choose the file, and your action details will show on the bottom right.
+- After opening your app, you can start recording under menubar -> action -> mainmenu -> start record. Hit failsafekey to start record, hit pause key to pause, hit again to resume, and hit failsafekey again to stop recording.
+- ___Detailed recording tutorial under docs/recording tutorial___
+- After recording your app, you can choose the recorded file under mainmenu, then you can edit your automation.
+- ___Detailed editing tutorial under docs/editing tutorial__
+- After editing, you can choose a converting option and convert it to a python script. After that you can either run it directly or run from automation manager frame
+- ___Detailed managing tutorial under docs/managing tutorial__
+
+## Specialty
+ 
+### Functions
+There are two power functions provided in the app or the recording — the image extraction and text extraction ability. Without those two functions it's merely a repeat-what-you-do tool, but image extraction and text extraction allows data collections which are probably more needed. 
+
+### Flexibility
+The combination of OpenCV and pyautogui enables some flexability in the automation: When you record a mouse action, the app will take a screenshot and store it under the according screenshot folder. After converting, when runned, for every mouse action, the program will load in the according pictures and try to find the __exact__ match on the screen:
+  - If __no__ matchings were detected, the cursor will go to the stored x,y coordinate
+  - If __only__ one match is found on the screen, the x,y coordinate will update to the found location and perform the action
+  - If __more than one__ match is found on the screen, the x,y coordinate will remain the stored value
+ This allows limited reusability on your automations but it gurantees safety.
+
+### Convenience 
+The automation editor in the app, especially merging blocks and adding for loops, allows easier editing and more conconvenient recording and editing process. 
+
+### Possibility
+The ability of converting edited data into python source code enables futhur editing. The gneral framework is provided by the converted code, but experienced programmers can add more details directly to the code to increase its flexibility and functions. For example, one can add many functions between commands like store extracted text to clipboard, get the url for more convient selenium webscraping, convert extracted image to videos... The combination of source-code generation, image extraction and text extraction opens up many possibilies for a much more powerful automations
+
+## Potential use
+- Automate some part of your daily work you are bored of
+- Automate games
+- Data collection
+- AI
+- ...
+
+## More to come
+- While loop in logic command combobox
+- If statement in logic command combobox
+- Linking block information to code
+- Add pre-made automations
+
+
