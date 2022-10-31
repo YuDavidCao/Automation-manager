@@ -18,7 +18,7 @@
 
 Automation manager is a tool to make and edit python scripts that automate your computer actions include keyboard, mouse and screenshot. 
 
-### Step by step tutorio
+### Step by step tutorial
 
 - After opening your app, you can start recording under menubar -> action -> mainmenu -> start record. Hit failsafekey to start record, hit pause key to pause, hit again to resume, and hit failsafekey again to stop recording.
 - ___Detailed recording tutorial under docs/recording tutorial___
@@ -45,6 +45,9 @@ The automation editor in the app, especially merging blocks and adding for loops
 ### Possibility
 The ability of converting edited data into python source code enables futhur editing. The gneral framework is provided by the converted code, but experienced programmers can add more details directly to the code to increase its flexibility and functions. For example, one can add many functions between commands like store extracted text to clipboard, get the url for more convient selenium webscraping, convert extracted image to videos... The combination of source-code generation, image extraction and text extraction opens up many possibilies for a much more powerful automations
 
+## Motivations
+The motivation of this project is pretty simple — let computer do the work. Since I knew computer, I've always been amazed of how much the computer can do or what computer can do that we human cannot, and that's the purpose of having those technology tools: free ourselves and let computers do all the hard work. I think, and hope, that this project achieve that in some way.
+
 ## Potential use
 - Automate some part of your daily work you are bored of
 - Automate games
@@ -57,5 +60,6 @@ The ability of converting edited data into python source code enables futhur edi
 - If statement in logic command combobox
 - Linking block information to code
 - Add pre-made automations
+- ...
 
 
