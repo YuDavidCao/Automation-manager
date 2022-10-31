@@ -1,4 +1,5 @@
 # Editing tutorial
+A detailed description of how to edit
 (I use the word "block/blocks" to mean a/multiple command/commands or action/actions)
 
 ## Workspace frame
