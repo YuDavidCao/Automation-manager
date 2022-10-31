@@ -42,7 +42,7 @@ Display information screen shows the relevant information of the block you selec
 - Action type
 - Image name
 - Waiting time
-- Screenshot ( "No image recorded for this block" will be displayed if 
+- Screenshot ( "No image recorded for this block" will be displayed if no image is available )
 
 ### method
 - Save block data: save your changes on the block information 
