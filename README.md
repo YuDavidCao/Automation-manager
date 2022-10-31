@@ -24,4 +24,4 @@ Automation manager is a tool to make and edit python scripts that automate your 
 - You can pause multiple times and do multiple extractions, there's no limit on the length of the recording (well technically there is if you drag it too long it will take a while to process) 
 - After you have performed all your actions, hit failsafekey again (normally defaulted to "left ctrl" + "f10") to stop record (you should hear a "recording stop
  if successul) 
-
+- click the reload recorded data on mainmenu and you should be able to access the newly recorded file under the "choose a file from records". Find and choose the file, and your action details will show on the bottom right.
