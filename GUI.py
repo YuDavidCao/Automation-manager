@@ -1,26 +1,14 @@
-"""
-Modules need:
-pip install playsound
-pip install pynput
-pip install customtkinter
-pip install pyautogui
-pip install opencv-python
-pip install pytesseract    #optional if you do not use text extraction
-"""
-
 from pynput import keyboard
 import customtkinter
 
 from concurrent import futures
 from tkinter import messagebox
 from tkinter import filedialog
-from tkinter import ttk
 from tkinter import *
 import importlib
 import os
 import time
 import json
-import sys
 import copy
 
 import record_test_2 as rc
@@ -29,7 +17,7 @@ import convert as cvt
 
 class Window():
 
-    def __init__(self, root, title, geometry):
+    def __init__(self, root, title):
         
         with open("status.json", "w") as f:
             json.dump({"status" : 1}, f, indent=4)
@@ -71,6 +59,7 @@ class Window():
         self.time_gap                 = self.setting["time_gap"]
         self.app_theme                = self.setting["app_theme"]
         self.threading_check_interval = self.setting["threading_check_interval"]
+        self.automerge                = self.setting["automerge"]
 
         if self.app_theme == "light":
             self.total_color = "#CFCFD3"
@@ -164,10 +153,6 @@ class Window():
         if self.choose_path:
             messagebox.showinfo("Select tesseract path", "Please choose a tesseract path for text recognition")
             self.p_path = filedialog.askopenfilename()
-            os.mkdir("img_extraction")
-            os.mkdir("record_folder")
-            os.mkdir("screenshot")
-            os.mkdir("text_extraction")
             if self.p_path:
                 self.setting["p_path"] = self.p_path
             self.setting["if_choose_path"] = False
@@ -214,12 +199,14 @@ class Window():
         self.addlabel   (1,2,2,f"The current pause key is {self.pause_key}")
         self.addrkbutton(1,3,0,"Record image extraction key 1",0,self.record_img_extraction_key)
         self.addrkbutton(1,3,1,"Record image extraction key 2",1,self.record_img_extraction_key)
-        self.addlabel   (1,3,2,f"The current image extraction key is {self.img_extraction_key}+left click")
+        self.addlabel   (1,3,2,f"The current image extraction key is {self.img_extraction_key}")
         self.addrkbutton(1,4,0,"Record text extraction key 1",0,self.record_text_extraction_key)
         self.addrkbutton(1,4,1,"Record text extraction key 2",1,self.record_text_extraction_key)
-        self.addlabel   (1,4,2,f"The current text extraction key is {self.text_extraction_key}+left click")
+        self.addlabel   (1,4,2,f"The current text extraction key is {self.text_extraction_key}")
         self.addbutton  (1,5,0,"If full screen",self.if_fullscreen)
         self.addlabel   (1,5,1,f"Open on full screen: {bool(self.isfullscreen)}")
+        self.addbutton  (1,6,0,"If auto merge when select file",self.if_automerge)
+        self.addlabel   (1,6,1,f"auto merge when select file: {bool(self.automerge)}")
         self.addcombobox(1,8,0,["light","dark","sky blue","vibrant","hacker"],self.choose_app_theme)
         self.addlabel   (1,8,1,f"The current theme of the app is {self.app_theme}")
         self.addcombobox(1,9,0,["flat", "groove", "raised", "ridge", "solid", "sunken"],self.choose_theme)
@@ -432,15 +419,27 @@ class Window():
         self.canvas.delete("all")
         self.canvas.create_text(400,300,text= f"""
 How to record:
-1. Click the record button to start initializing the record, once you are ready, click start record hotkey(default to left ctrl + f10)
-2. Once it starts, do whatever you want to record, while doing so, if you want to pause the record, you can click the pause hotkey
-(default to left ctrl + f9)
-3. A powerful feature of this app is it's image extraction and text extraction ability, which enables during the pause,
-you can hit image extraction hotkey(default to left ctrl + f1 + mouse left click), hit the hotkey twice to get the image you want to
-extract from the screen. The image will be the space in between your two clicks. Same thing to text extraction, hit the text extraction 
-hotkey(default to left ctrl + f2 + left mouse click), hit the hotkey twice to get the image you want to extract your text from. 
-The image will be the space in between your two clicks, and the text will be extracted once the automation is performed. 
-        """)  
+1.  On the menubar, under action -> mainmenu, you are able to find the "start record" button. After clicking 
+    on it, get to the screen that you want to record and hit "failsafekey", normally defaulted to 
+    "left ctrl" + "f10" (You should hear a "recording start" sound if successful), then all your actions 
+    later on will be stored
+2.  Perform your action
+3.  During the recording, you can always hit the pause key, normally defaulted to "left ctrl" + "f9" (You 
+    should hear a "recording pause" sound if successful). During the pause phase, everything you did will 
+    NOT be recorded until you depause (hit pause key again and you should hear a "recording resume" if
+    successful) In addition, during pause, you can extract a certain part of your screen (essentailly screenshot) 
+    by clicking image extraction key twice, normally default to "left ctrl" + "f1" + "left click", the image 
+    area will be between the two left click. You can also extract texts from a certain part of your screen 
+    (essentailly analyzing the text from your screenshot) by clicking text extraction key twice, normally default 
+    to "left ctrl" + "f2" + "left click", the text extraction image area will be between the two left click.
+4.  You can pause multiple times and do multiple extractions, there's no limit on the length of the recording 
+    (unless drag it too long it will take a while to process and probably crash) After you have performed all 
+    your actions, hit failsafekey again (normally defaulted to "left ctrl" + "f10") to stop record (you should
+    hear a "recording stop if successul)
+5.  click the reload recorded data on mainmenu and you should be able to access the newly recorded file 
+    under the "choose a file from records". Find and choose the file, and your action details will show 
+    on the bottom right.
+    """)  
     
     def show_help_edit(self):
         try:
@@ -452,29 +451,29 @@ The image will be the space in between your two clicks, and the text will be ext
         self.canvas.delete("all")
         self.canvas.create_text(400,300,text= f"""
 Functions of the editor:
-1. After the record, you are able to view your previous records detailedly by selecting the combobox next to it
-2. After the selection, you will see that on the main automation column all your actions will be displayed. However,
-it includes press and release key, which might be confusuing, to make it clear, click the "automerge block" on the 
-right side, then the system will detect all your click and keyinput command and merge them
-3. For every block of the command, you can select on it and click enter you are able to see the detail of the block,
-including the block data and the original generated python source code. You will be able to edit everything about
-the block and after you finish click "save" to save it. You can also click "restore defualt" to restore original
-data or code. (changing merged blocks are currently nor supported)
-4. For some more complex editing, you can click on the "change combobox style" to change the selection style, which makes 
-manipulating more convenient. You can then select multiple blocks and click "add workspace" down below to add a new work
-space consist of all the previously selected blocks. You can edit the blocks and then you can choose to either
-"Merge to main"(replace main automation wuth current workspace) or "Concatenate to main" (add the blocks onto the end of the
-main automation)
-5. Another thing you can do is that you can select "Merge blocks" to merge all the blocks you selected into one, merged block's
-information can be displayed by "up a command" and "down a command" buttons on the button of the display screen. Besides that,
-you can simply record a new block and the new block will show up the on end of the main automation.
-6. You can always delete the currently selected block if you do not want them
-7. After editing, if you click the convert button on the main screen, the current main automation will be saved into a .py file
-in the "pyscript" folder. There's several options to convert: timed and reusable hotkey and non reusable hotkey.
-Don't forget to record your hotkey if you pick hotkey activation, reusable means that you can essentially make it as
-a custom hotkey that performs a sequence of action, but for safety, please execute reusable script in automation manager frame
-You can then convert it from either your computer or from automation manager frame. You can also edit it directly from the 
-source python file.
+1.  After the record, you are able to view your previous records detailedly by selecting the combobox next to it
+2.  After the selection, you will see that on the main automation column all your actions will be displayed. However,
+    it includes press and release key, which might be confusuing, to make it clear, click the "automerge block" on the 
+    right side, then the system will detect all your click and keyinput command and merge them
+3.  For every block of the command, you can select on it and click enter you are able to see the detail of the block,
+    including the block data and the original generated python source code. You will be able to edit everything about
+    the block and after you finish click "save" to save it. You can also click "restore defualt" to restore original
+    data or code.
+4.  For some more complex editing, you can click on the "change combobox style" to change the selection style, which makes 
+    manipulating more convenient. You can then select multiple blocks and click "add workspace" down below to add a new work
+    space consist of all the previously selected blocks. You can edit the blocks and then you can choose to either
+    "Merge to main"(replace main automation wuth current workspace) or "Concatenate to main" (add the blocks onto the end of the
+    main automation)
+5.  Another thing you can do is that you can select "Merge blocks" to merge all the blocks you selected into one, merged block's
+    information can be displayed by "up a command" and "down a command" buttons on the button of the display screen. Besides that,
+    you can simply record a new block and the new block will show up the on end of the main automation.
+    6. You can always delete the currently selected block if you do not want them
+7.  After editing, if you click the convert button on the main screen, the current main automation will be saved into a .py file
+    in the "pyscript" folder. There's several options to convert: timed and reusable hotkey and non reusable hotkey.
+    Don't forget to record your hotkey if you pick hotkey activation, reusable means that you can essentially make it as
+    a custom hotkey that performs a sequence of action, but for safety, please execute reusable script in automation manager frame
+    You can then convert it from either your computer or from automation manager frame. You can also edit it directly from the 
+    source python file.
         """)  
 
     def show_help_execute(self):
@@ -487,14 +486,23 @@ source python file.
         self.canvas.delete("all")
         self.canvas.create_text(400,300,text= f"""
 How to execute:
-1. After you finish editing and converted it to python source code, you can directly open it from pyscript and execute
-and edit it directly
-2. Another thing you can do is to go into automation manager under Action, on the very left there's all your records and if you
-click the execute selected scripts, it will be runned as a thread in which is shown in the middle column, once it's finished, it
-will then show up on the right column. You can clear the finished thread by clicking "clear finished automation", you can also
-terminate a active thread by clicking terminate selected thread
-3. During the execution, if something unexpected happens, you can always move your cursor to the corner of the screen and the script
-will be stopped.
+1.  After you finished editing an automation, under mainmenu frame you are able to find the convert button. When click, your 
+    automations will be converted to a python source code file
+2.  Beside the button, you will be able to select your converting option. There are two types (technically 3) converting options:
+    - timer: Select a timer and convert, timer activations means that the program will be start after choosen seconds passed.
+    - Hotkey activation (not reusable): Record a/multiple activation hotkeys and convert. Also the default setting is not reusable
+      so you do not to intentionally choose it. Hotkey activation means that after executing, when you hit your recorded hotkey 
+      the automation will run.
+    - Hotkey activation (reusable): Record a/multiple activation hotkeys and convert. You will have to turn the reusable on manually.
+      Reusable means that whenever you click your hotkey the automation will run one time but will not stop, instead it essentially 
+      works as a custom hotkey to your computer where whenever you click it the automation will run one time. (caution! Don't activate
+      another time when your current automation hasn't finish)
+2.  Another thing you can do is to go into automation manager under Action, on the very left there's all your records and if you
+    click the execute selected scripts, it will be runned as a thread in which is shown in the middle column, once it's finished, it
+    will then show up on the right column. You can clear the finished thread by clicking "clear finished automation", you can also
+    terminate a active thread by clicking terminate selected thread
+3.  During the execution, if something unexpected happens, you can always move your cursor to the corner of the screen and the script
+    will be stopped.
         """)    
 
     def show_help_general(self):
@@ -506,22 +514,27 @@ will be stopped.
             self.root.bind("<Escape>",self.quit_canvas)
         self.canvas.delete("all")
         self.canvas.create_text(400,300,text= f"""
-Functions:
-1. This app is able to record all your mouse inputs and your keyboard inputs
-2. During pause, you can add in image extraction and text extraction step
-3. The App also serves as an editor for your recordings in which you can manage and modify it
-4. After modify, you can convert the data in which the data is going to be stored in a .py file in pyscript and ready to execute
-5. You can execute and manage your scripts through the automation manager
-5. The execution algorithm has a image recognition system which allows certain flexibility
+Description:
+Automation manager is a tool to make and edit python scripts that automate your computer actions include 
+keyboard, mouse and screenshot.
+
+Prerequisite:
+pip install tk (if you do not have tkinter)
+pip install playsound
+pip install pynput
+pip install customtkinter
+pip install pyautogui
+pip install opencv-python
+pip install pytesseract (optional if you do not use text extraction)
 
 A simple walk through:
-1.Hit record button
-2.When you are ready, hit start record hotkey (default to left ctrl + f10)
-3.Perform your action
-4.If you want to pause the app, hit pause record hotkey (default to left )
-5.click reload recorded data, choose the file, do some editing if you need to
-6.choose a convertion option and click "convert to py script"
-7.Run it directly by opening source code or run it through automation manager
+1.  After opening your app, you can start recording under menubar -> action -> mainmenu -> start record. 
+    Hit failsafekey to start record, hit pause key to pause, hit again to resume, and hit failsafekey 
+    again to stop recording.
+2.  After recording your app, you can choose the recorded file under mainmenu, then you can edit your 
+    automation.
+3.  After editing, you can choose a converting option and convert it to a python script. After that 
+    you can either run it directly or run from automation manager frame 
         """)
 
     def show_help_app(self):
@@ -535,9 +548,9 @@ A simple walk through:
         self.canvas.create_text(400,300,text= f"""
 App setting:
 1. In the option screen, you are able to change the app's theme (light, dark and skyblue)
-*dark mode is my favorate btw"
 2. You can choose to toggle full screen or not when next time the app is started
-3. In case something unexpected happen, try app reboot under "system" on the menubar
+3. In case something unexpected happen, or you change your settings, try app reboot under 
+"system" on the menubar
         """)
 
 #*_____________________________________________________________________________________________________________________________________________________________
@@ -558,7 +571,8 @@ App setting:
     "if_choose_path": self.choose_path,
     "time_gap": self.time_gap,
     "app_theme": self.app_theme,
-    "threading_check_interval": self.threading_check_interval
+    "threading_check_interval": self.threading_check_interval,
+    "automerge": self.automerge
 }
         with open(f"setting.json","w") as f:
             json.dump(data,f,indent = 4)        
@@ -579,7 +593,8 @@ App setting:
     "if_choose_path": True,
     "time_gap": 0,
     "app_theme": "light",
-    "threading_check_interval": 1
+    "threading_check_interval": 1,
+    "automerge": 1
 }
         with open(f"setting.json","w") as f:
             json.dump(data,f,indent = 4)  
@@ -597,7 +612,6 @@ App setting:
             self.setting["p_path"] = self.p_path
         with open("setting.json","w") as f:
             json.dump(self.setting,f,indent = 4)
-        self.addlabel (2,1,1,f"The current tesseract path is {self.p_path}")
 
     def quit_canvas(self,event):
         """destory the canvas (for "show help" functions)"""
@@ -624,6 +638,11 @@ App setting:
         """self.isfullscreen = not self.isfullscreen"""
         self.isfullscreen = not self.isfullscreen
         self.addlabel(1,5,1,f"Open on full screen: {self.isfullscreen}")
+
+    def if_automerge(self):
+        """self.automerge = not self.automerge"""
+        self.automerge = not self.automerge
+        self.addlabel(1,6,1,f"auto merge when select file: {bool(self.automerge)}")
 
     def app_reboot(self):
         """reboot the app"""
@@ -877,6 +896,9 @@ App setting:
         self.addlabel     (5,0,10,"Listbox action")
         self.addbutton    (5,1,10,"Change listbox style",self.change_listbox_style)
         self.addlabel     (5,2,10,f"Current listbox style is: {self.listbox_style}")
+        if self.automerge:
+            self.auto_merge_block()
+            self.auto_merge_block()
 
     def addworkspace(self,column):
         """add another workspace, loading all selected block, max to 4 (workspace)"""
@@ -1617,40 +1639,8 @@ if __name__ == "__main__":
     """)
 
 if __name__ == '__main__':
-    thread_pool_executor = futures.ThreadPoolExecutor(max_workers=10)
+    thread_pool_executor = futures.ThreadPoolExecutor(max_workers=30)
     root = customtkinter.CTk()
-    window1 = Window(root,"Automation generator","1000x800")
+    window1 = Window(root,"Automation manager")
     with open("status.json", "w") as f:
         json.dump({"status" : 0}, f, indent=4)
-
-"""
-Minor fixes:
-N/A
-"""
-
-"""
-Existing problems:
-N/A
-"""
-
-"""
-Functions to add:
-replace_merge for listbox
-"""
-
-"""
-Could be faster/cleaner:
-load data
-auto-merge blocks
-"""
-
-"""
-Others:
-MacOS & Linux platform test needed
-
-"""
-
-"""
-Notes: 
-Custom Tkinter pyinstaller issue
-"""
