@@ -10,6 +10,8 @@
 - pip install opencv-python
 - pip install pytesseract (optional if you do not use text extraction)
 
+## Run the app from GUI.py
+
 ## functions
 
 ### Overview
