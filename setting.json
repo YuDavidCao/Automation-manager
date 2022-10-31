@@ -23,5 +23,6 @@
     "if_choose_path": true,
     "time_gap": 0,
     "app_theme": "light",
-    "threading_check_interval": 1
+    "threading_check_interval": 1,
+    "automerge": 1
 }
