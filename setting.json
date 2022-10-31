@@ -1,0 +1,27 @@
+{
+    "failsafekey": [
+        "ctrl_l",
+        "f10"
+    ],
+    "style": "raised",
+    "fullscreen": false,
+    "toggle_fullscreen": "<Control_L>q",
+    "stop_fullscreen": "<Escape>",
+    "p_path": "D:/Code/tesseract.exe",
+    "pause_key": [
+        "ctrl_l",
+        "f9"
+    ],
+    "img_extraction_key": [
+        "ctrl_l",
+        "f1"
+    ],
+    "text_extraction_key": [
+        "ctrl_l",
+        "f2"
+    ],
+    "if_choose_path": false,
+    "time_gap": 0,
+    "app_theme": "hacker",
+    "threading_check_interval": 1
+}
