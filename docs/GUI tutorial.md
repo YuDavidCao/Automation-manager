@@ -11,7 +11,6 @@ A detailed description of using the GUI
 - Help (hit "Escape" to exit help screen)
   - General -> display general help information
   - About the app itself -> display app help information
-  - ----------------------------------------------------
   - How to record -> display recording help information
   - How to edit -> display edit help information
   - How to execute -> display execute help information
