@@ -1,7 +1,7 @@
 # Editing tutorio
 (I use the word "block/blocks" to mean a/multiple command/commands or action/actions)
 
-## Workspace
+## Workspace frame
 
 ### Description
 Workspace allows you to access all of your recorded. You are able to: change the sequence of your automation, record/delete/merge your blocks. You can add multiple workspaces and work with multiple record files. (limited to four workspaces.)
@@ -30,7 +30,7 @@ Workspace allows you to access all of your recorded. You are able to: change the
 - Press "d" to make a/multiple selected blocks go down
 - Press "enter" to display the block information and code
 
-## Display information
+## Display information frame
 
 ### Description
 Display information screen shows the relevant information of the block you selected, include:
@@ -44,13 +44,25 @@ Display information screen shows the relevant information of the block you selec
 - Waiting time
 - Screenshot ( "No image recorded for this block" will be displayed if 
 
-### Description
-- 
 ### method
+- Save block data: save your changes on the block information 
+- Restore default block value: restore the value (update whenever you save)
+- Up a command (merged blocks only): Access the next sub-block or sub-command in your merged block
+- Down a command (merged blocks only): Access the previous sub-block or sub-command in your merged block
 
-## Logic
+### Note
+Changing values other than block name is not recommended because it will not update your code, you are free to change them but they will not make an impact on the actual performance. 
+
+## Logic frame
 
 ### Description
-- 
-### method
+Display the underlying code of your command, you can edit the source code directly from here.
 
+### method
+- Save code: save your changes
+- Restore default code: restore the code (update whenever you save)
+- Add repeat: 
+  - Enter the number you want your actions to repeat, and hit "enter" to apply, don't forget to save in the end
+
+### Note
+- The code you change will not impact data under the display information as those are mostly a visualization
