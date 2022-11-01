@@ -8,9 +8,19 @@
 - pip install customtkinter
 - pip install pyautogui
 - pip install opencv-python
+- pip install Pillow
 - pip install pytesseract (optional if you do not use text extraction)
 
-## Run the app from GUI.py
+## Important Notes
+
+### Platform limitations:
+App works best on windows, has limitations and other prerequisite on MacOs and Linux:
+- for pynput: https://github.com/moses-palmer/pynput/blob/master/docs/limitations.rst
+- for pyautogui: https://github.com/asweigart/pyautogui
+
+### Run the app from GUI.py
+
+### Move your cursor to a corner of your screen to quit a running automation
 
 ## Overview
 
