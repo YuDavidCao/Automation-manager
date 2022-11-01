@@ -1136,8 +1136,8 @@ App setting:
                         newblock[0] = dimension
                     newblock[0][0] = dimension
                     self.blockdata[i].append(newblock)
+                    self.gridmap[5][1][i*2].insert(END,self.blockdata[i][-1][0][2])
                     break
-        self.refresh_listbox()
         self.gridmap[5][1][temp*2].selection_set(END)
 
     def concatenate_to_main(self,column):
