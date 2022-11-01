@@ -151,6 +151,22 @@ class Window():
 
     def initializing_variable(self):
         if self.choose_path:
+            try:
+                os.mkdir("record_folder")
+            except:
+                pass
+            try:                
+                os.mkdir("img_extraction")
+            except:
+                pass
+            try:
+                os.mkdir("text_extraction")
+            except:
+                pass
+            try:
+                os.mkdir("screenshot")
+            except:
+                pass
             messagebox.showinfo("Select tesseract path", "Please choose a tesseract path for text recognition")
             self.p_path = filedialog.askopenfilename()
             if self.p_path:
