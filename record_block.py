@@ -2,11 +2,9 @@ from pynput import mouse
 from pynput import keyboard
 import pyautogui
 
+from tkinter import *
 import os
 import time
-import json
-from pynput import mouse
-from tkinter import *
 
 import convert as cvt
 
