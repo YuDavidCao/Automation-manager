@@ -5,7 +5,7 @@ A detailed description of how to edit
 ## Workspace frame
 
 ### Description
-Workspace allows you to access all of your recorded. You are able to: change the sequence of your automation, record/delete/merge your blocks. You can add multiple workspaces and work with multiple record files. (limited to four workspaces.)
+Workspace allows you to access all of your records. You are able to: change the sequence of your automation, record/delete/merge your blocks. You can add multiple workspaces and work with multiple record files. (limited to four workspaces.)
 
 ### Buttons
 - Add another workspace: all the blocks you selected will be copied to the new workspace.
