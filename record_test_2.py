@@ -2,13 +2,10 @@ from pynput import mouse
 from pynput import keyboard
 import pyautogui
 
-import os
+from tkinter import *
 import time
 import json
-from pynput import mouse
-from tkinter import *
-
-import convert as cvt
+import os
 
 class Record:
 
