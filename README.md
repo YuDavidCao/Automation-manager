@@ -44,7 +44,7 @@ The automation editor in the app, especially merging blocks and adding for loops
 The ability of converting edited data into python source code enables futhur editing. The gneral framework is provided by the converted code, but experienced programmers can add more details directly to the code to increase its flexibility and functions. For example, one can add many functions between commands like store extracted text to clipboard, get the url for more convient selenium webscraping, convert extracted image to videos... The combination of source-code generation, image extraction and text extraction opens up many possibilies for a much more powerful automations
 
 ## Motivations
-The motivation of this project is pretty simple — let computer do the work. Since I knew computer, I've always been amazed of how much the computer can do or what computer can do that we human cannot, and that's the purpose of having those technology tools: free ourselves and let computers do all the hard work. I think, and hope, that this project achieve that in some way.
+The motivation of this project is pretty simple — let computer do the work.  Since I learned about computers, I've always been amazed of how much the computer can do or what computers can do that we humans cannot, and that's the purpose of having those technology tools: free ourselves and let computers do all the hard work. I think, and hope, that this project achieve that in some way.
 
 ## Potential use
 - Automate some part of your daily work you are bored of
