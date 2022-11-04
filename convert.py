@@ -25,6 +25,8 @@ gen = pyautogui.locateAllOnScreen(\"screenshot/{filename}/{n}.png\")
 try:
     g = next(gen)
     x,y,c,d = g
+    x = a+c//2
+    y = b+d//2
     try:
         next(gen)
         x,y = {x},{y}
